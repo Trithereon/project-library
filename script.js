@@ -18,13 +18,38 @@ function addBookToLibrary(title, author, pages, isRead) {
     myLibrary.push(newBook);
 }
 
-addBookToLibrary('Harry Potter', 'JK Rowling', 123, true); // Manual test.
+addBookToLibrary('Harry Potter', 'JK Rowling', 123, true); // Manual book additions.
+addBookToLibrary('hurr', 'durr', 222);
+addBookToLibrary('qwert', 'yuio', 333, false);
+addBookToLibrary('vfbgnh', 'mj,k.l', 4444, true);
+addBookToLibrary('poiu', 'ytrwe', 55555, true);
 console.log(myLibrary);
-console.log(myLibrary[0]);
 
 function displayLibrary() {
     /* Need a function that loops through the library array and displays
 each book on the page. Displaying in some sort of table would be nice,
 otherwise, cards representing each book could work too. */
 
+// Iterate through entire library array, populating the table to display books.
+
+    for (const book of myLibrary) {
+        const table = document.getElementById('library-table');
+        const newRow = table.insertRow();
+
+        newRow.dataset.id = book.id; // Adds data-id="c0bc0999-01fd-4e93-9d7c-5c9b8847fe23" (example) to the new <tr> element.
+
+        const titleCell = newRow.insertCell();
+        titleCell.textContent = book.title;
+
+        const authorCell = newRow.insertCell();
+        authorCell.textContent = book.author;
+
+        const pagesCell = newRow.insertCell();
+        pagesCell.textContent = book.pages;
+
+        const isReadCell = newRow.insertCell();
+        isReadCell.textContent = book.isRead;
+    }
 }
+
+displayLibrary();

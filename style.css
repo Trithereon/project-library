@@ -1,9 +1,10 @@
-/* The following is copied from https://github.com/mdn/learning-area/blob/main/html/tables/basic/minimal-table.css, 
+/* The following is adapted from https://github.com/mdn/learning-area/blob/main/html/tables/basic/minimal-table.css, 
 to help style my tables */
 
 table {
   border-collapse: collapse;
   border: 2px solid rgb(200,200,200);
+  box-shadow: 2px 2px 2px #999;
   letter-spacing: 1px;
   font-size: 0.8rem;
 }
