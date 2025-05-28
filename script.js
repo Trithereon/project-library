@@ -26,30 +26,42 @@ addBookToLibrary('poiu', 'ytrwe', 55555, true);
 console.log(myLibrary);
 
 function displayLibrary() {
-    /* Need a function that loops through the library array and displays
-each book on the page. Displaying in some sort of table would be nice,
-otherwise, cards representing each book could work too. */
 
-// Iterate through entire library array, populating the table to display books.
+    // Iterate through entire library array, populating the table to display books.
 
     for (const book of myLibrary) {
-        const table = document.getElementById('library-table');
-        const newRow = table.insertRow();
-
-        newRow.dataset.id = book.id; // Adds data-id="c0bc0999-01fd-4e93-9d7c-5c9b8847fe23" (example) to the new <tr> element.
-
-        const titleCell = newRow.insertCell();
-        titleCell.textContent = book.title;
-
-        const authorCell = newRow.insertCell();
-        authorCell.textContent = book.author;
-
-        const pagesCell = newRow.insertCell();
-        pagesCell.textContent = book.pages;
-
-        const isReadCell = newRow.insertCell();
-        isReadCell.textContent = book.isRead;
+        addRow(book);
     }
 }
 
 displayLibrary();
+
+function addRow(book) {
+    const table = document.getElementById('library-table');
+    const newRow = table.insertRow();
+
+    newRow.dataset.id = book.id; // Adds data-id="c0bc0999-01fd-4e93-9d7c-5c9b8847fe23" (example) to the new <tr> element.
+
+    const titleCell = newRow.insertCell();
+    titleCell.textContent = book.title;
+
+    const authorCell = newRow.insertCell();
+    authorCell.textContent = book.author;
+
+    const pagesCell = newRow.insertCell();
+    pagesCell.textContent = book.pages;
+
+    const isReadCell = newRow.insertCell();
+    isReadCell.textContent = book.isRead;
+}
+
+
+
+// Add new book button functionality.
+
+const addNewBookButton = document.getElementById('addNewBookButton');
+addNewBookButton.addEventListener ('click', function(event) {
+    addBookToLibrary('poiu', 'ytrwe', 55555, true);
+    const latestAddition = myLibrary[myLibrary.length - 1];
+    addRow(latestAddition);
+});
