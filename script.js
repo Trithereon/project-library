@@ -20,7 +20,6 @@ function addBookToLibrary(title, author, pages, isRead) {
 
 addBookToLibrary('Harry Potter', 'JK Rowling', 123, true); // Manual test.
 console.log(myLibrary);
-
 console.log(myLibrary[0]);
 
 function displayLibrary() {
