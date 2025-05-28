@@ -53,9 +53,13 @@ function addRow(book) {
 
     const isReadCell = newRow.insertCell();
     isReadCell.textContent = book.isRead;
+
+    const deleteRowCell = newRow.insertCell();
+    const button = document.createElement('button');
+    button.textContent = 'X';
+    button.className = 'delete-row-button';
+    deleteRowCell.appendChild(button);
 }
-
-
 
 // Add new book button functionality.
 
@@ -65,3 +69,6 @@ addNewBookButton.addEventListener ('click', function(event) {
     const latestAddition = myLibrary[myLibrary.length - 1];
     addRow(latestAddition);
 });
+
+
+

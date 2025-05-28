@@ -41,6 +41,6 @@ body {
     gap: 10px 10px;
 }
 
-button {
+button#addNewBookButton {
     height: 40px;
 }
