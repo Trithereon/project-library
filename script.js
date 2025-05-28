@@ -61,6 +61,15 @@ function addRow(book) {
     deleteRowCell.appendChild(button);
 }
 
+// Delete button functionality.
+
+document.addEventListener ('click', function(event) {
+    if (event.target.classList.contains('delete-row-button')) {
+        const row = event.target.closest('tr'); // This functionality is not removing the book from array. I need to find the index based on the data-id.
+        row.remove();
+    }
+});
+
 // Add new book button functionality.
 
 const addNewBookButton = document.getElementById('addNewBookButton');
