@@ -1,7 +1,8 @@
-const myLibrary = [];
+const myLibrary = []; // Array used to store the books.
+
+// The constructor function for books.
 
 function Book(title, author, pages, isRead) { 
-    // The constructor for books.
     if (!new.target) { // Safeguard to prevent calling Book() without new.
         return new Book(title, author, pages, isRead);
     }
@@ -12,23 +13,25 @@ function Book(title, author, pages, isRead) {
     this.isRead = isRead || false; // Default is unread, if not provided.
 }
 
-function addBookToLibrary(title, author, pages, isRead) {
-    // take params, create a book, then store it in the array
+// Function to take params, create a book, then store it in the array.
+
+function addBookToLibrary(title, author, pages, isRead) {    
     const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
 }
 
-addBookToLibrary('Harry Potter', 'JK Rowling', 123, true); // Manual book additions.
+// Manual book additions.
+
+addBookToLibrary('Harry Potter', 'JK Rowling', 123, true); 
 addBookToLibrary('hurr', 'durr', 222);
 addBookToLibrary('qwert', 'yuio', 333, false);
 addBookToLibrary('vfbgnh', 'mj,k.l', 4444, true);
 addBookToLibrary('poiu', 'ytrwe', 55555, true);
 console.log(myLibrary);
 
+// Iterate through entire library array, populating the table to display books.
+
 function displayLibrary() {
-
-    // Iterate through entire library array, populating the table to display books.
-
     for (const book of myLibrary) {
         addRow(book);
     }
@@ -40,7 +43,7 @@ function addRow(book) {
     const table = document.getElementById('library-table');
     const newRow = table.insertRow();
 
-    newRow.dataset.id = book.id; // Adds data-id="c0bc0999-01fd-4e93-9d7c-5c9b8847fe23" (example) to the new <tr> element.
+    newRow.dataset.id = book.id; // Assigns data-id attribute from book.id property to the new <tr> element.
 
     const titleCell = newRow.insertCell();
     titleCell.textContent = book.title;
@@ -61,23 +64,30 @@ function addRow(book) {
     deleteRowCell.appendChild(button);
 }
 
-// Delete button functionality.
+// Buttons
 
 document.addEventListener ('click', function(event) {
+    
+    // Delete button functionality.
+    
     if (event.target.classList.contains('delete-row-button')) {
-        const row = event.target.closest('tr'); // This functionality is not removing the book from array. I need to find the index based on the data-id.
+        const row = event.target.closest('tr');
         row.remove();
+        const bookID = event.target.closest('tr').getAttribute('data-id');
+        const index = myLibrary.findIndex(book => book.id === bookID);
+        if (index !== -1) {
+            myLibrary.splice(index, 1);
+            console.log(myLibrary);
+            return true; // Book found and removed successfully.
+        }
+        return false; // Book not found.
+    }
+
+    // Add new book button functionality.
+
+    if (event.target.id === 'addNewBookButton') {
+        addBookToLibrary('poiu', 'ytrwe', 55555, true);
+        const latestAddition = myLibrary[myLibrary.length - 1];
+        addRow(latestAddition);
     }
 });
-
-// Add new book button functionality.
-
-const addNewBookButton = document.getElementById('addNewBookButton');
-addNewBookButton.addEventListener ('click', function(event) {
-    addBookToLibrary('poiu', 'ytrwe', 55555, true);
-    const latestAddition = myLibrary[myLibrary.length - 1];
-    addRow(latestAddition);
-});
-
-
-
