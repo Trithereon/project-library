@@ -17,10 +17,32 @@
             <th>Read status</th>
             <th>Delete</th>
         </tr>
-    
     </table>
     <button id="addNewBookButton">
         Add New Book
     </button>
+    <dialog>
+        <button id="cancelButton">Cancel</button>
+        <p>Please enter book details.</p>
+        <form id="addNewBookForm">
+            <div>
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required autofocus>
+            </div>
+            <div>
+                <label for="title">Author:</label>
+                <input type="text" id="author" name="author" required>
+            </div>
+            <div>
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="pages" required>
+            </div>
+            <div>
+                <label for="read-status">Read status:</label>
+                <input type="checkbox" id="read-status" name="read-status">
+            </div>
+            <button id="submitButton" type="submit">Submit</button>
+        </form>
+    </dialog>
 </body>
 </html>
