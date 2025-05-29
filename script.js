@@ -47,12 +47,16 @@ function addRow(book) {
 
     const isReadCell = newRow.insertCell();
     isReadCell.textContent = book.isRead;
+    const changeReadStatusButton = document.createElement('button');
+    changeReadStatusButton.className = 'changeReadStatusButton';
+    changeReadStatusButton.textContent = 'Toggle';
+    isReadCell.appendChild(changeReadStatusButton);
 
     const deleteRowCell = newRow.insertCell();
-    const button = document.createElement('button');
-    button.textContent = 'X';
-    button.className = 'delete-row-button';
-    deleteRowCell.appendChild(button);
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'X';
+    deleteButton.className = 'delete-row-button';
+    deleteRowCell.appendChild(deleteButton);
 }
 
 // Buttons
@@ -114,5 +118,19 @@ document.addEventListener ('click', function(event) {
         });
 
 
+    }
+
+    // "Change read status" button functionality.
+    if (event.target.classList.contains('changeReadStatusButton')) {
+
+        // Change read property in object.
+        const bookID = event.target.closest('tr').getAttribute('data-id');
+        const bookObject = myLibrary.find(book => book.id === bookID);
+        bookObject.isRead = !bookObject.isRead; // Toggles from true to false or vice versa.
+
+        // Update display from new property value in object.
+        const cell = event.target.closest('td');
+        const textNode = cell.firstChild;
+        textNode.textContent = bookObject.isRead;
     }
 });
