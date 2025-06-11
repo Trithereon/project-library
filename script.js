@@ -58,68 +58,25 @@ function addRow(book) {
 }
 
 // Buttons
-document.addEventListener ('click', function(event) {
+document.addEventListener('click', function(event) {
     
     // "Delete" button functionality.
     if (event.target.classList.contains('delete-row-button')) {
         const row = event.target.closest('tr');
-        row.remove();
         const bookID = event.target.closest('tr').getAttribute('data-id');
         const index = myLibrary.findIndex(book => book.id === bookID);
         myLibrary.splice(index, 1);
+        row.remove();
         console.log(myLibrary); // To log updated library array in console.
     }
 
     // "Add new book" button functionality.
-    if (event.target.id === 'addNewBookButton') {
-
-        const dialog = document.querySelector("dialog");
-        const cancelButton = document.getElementById("cancelButton");
-        const submitButton = document.getElementById("submitButton");
-        const form = document.getElementById('addNewBookForm');
-
-        // "Add new book" button opens the dialog modal.
-        dialog.showModal();
-
-        // "Submit" button adds the new book from the inputted data form.
-        submitButton.addEventListener("click", (event) => {
-            event.preventDefault();
-
-            // Trigger browser validation UI
-            if (!form.reportValidity()) {
-                return; // Stop if any HTML5 validation fails
-            };            
-                        
-            const title = document.getElementById('title').value;
-            const author = document.getElementById('author').value;
-            const pages = document.getElementById('pages').value;
-            const read = document.getElementById('read-status').checked;
-            
-            // Now that the input form is validated, add the new book info to library.
-            addBookToLibrary(title, author, pages, read);
-
-            // Display newly added book.
-            const latestAddition = myLibrary[myLibrary.length - 1];
-            addRow(latestAddition);
-            console.log(myLibrary); // To log updated library array in console.
-
-            // Close dialog and reset form data.
-            form.reset();
-            dialog.close();
-            return;
-        });
-        
-        // "Cancel" button closes the dialog
-        cancelButton.addEventListener("click", () => {
-        dialog.close();
-        document.getElementById('addNewBookForm').reset();
-        });
-
-
+    else if (event.target.id === 'addNewBookButton') {
+        document.querySelector('dialog').showModal();
     }
 
     // "Change read status" button functionality.
-    if (event.target.classList.contains('changeReadStatusButton')) {
+    else if (event.target.classList.contains('changeReadStatusButton')) {
 
         // Change read property in object.
         const bookID = event.target.closest('tr').getAttribute('data-id');
@@ -128,7 +85,36 @@ document.addEventListener ('click', function(event) {
 
         // Update display from new property value in object.
         const cell = event.target.closest('td');
-        const textNode = cell.firstChild;
-        textNode.textContent = bookObject.isRead;
+        cell.firstChild.textContent = bookObject.isRead;
     }
+});
+
+// "Add New Book" form handling.
+const form = document.getElementById('addNewBookForm');
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Trigger browser validation UI
+    if (!this.reportValidity()) return; // Stop if any HTML5 validation fails
+                
+    const title = document.getElementById('title').value;
+    const author = document.getElementById('author').value;
+    const pages = document.getElementById('pages').value;
+    const read = document.getElementById('read-status').checked;
+    
+    // Now that the input form is validated, add the new book info to library.
+    addBookToLibrary(title, author, pages, read);
+
+    // Display new book in table.
+    addRow(myLibrary[myLibrary.length - 1]);
+    console.log(myLibrary); // To log updated library array in console.
+
+    this.reset();
+    document.querySelector('dialog').close();
+});
+
+// "Cancel" button closes the "Add New Book" modal.
+document.getElementById('cancelButton').addEventListener('click', () => {
+document.querySelector('dialog').close();
+document.getElementById('addNewBookForm').reset();
 });
