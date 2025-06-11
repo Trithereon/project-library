@@ -26,6 +26,13 @@ function displayLibrary() {
     }
 }
 
+// Populate myLibrary with some placeholder books.
+addBookToLibrary('Harry Potter', 'JK Rowling', 652, true);
+addBookToLibrary('The Lord of the Rings', 'JRR Tolkien', 36520, false);
+addBookToLibrary('Cook Book', 'Mom', 351, true);
+addBookToLibrary('Autobiography', 'Trithereon', 864, true);
+addBookToLibrary('The Holy Bible', 'God', 6495, false);
+
 displayLibrary();
 
 function addRow(book) {
@@ -117,10 +124,12 @@ form.addEventListener('submit', function(event) {
 document.getElementById('cancelButton').addEventListener('click', (event) => {
     event.preventDefault();
     const form = document.getElementById('addNewBookForm');
+
+    // Reset input field values.
     form.querySelectorAll('input').forEach(input => {
         input.value = '';
-        input.blur();
+        input.blur(); // Remove focus on input fields to avoid validation errors.
     });
-    
+
     document.querySelector('dialog').close();
 });
