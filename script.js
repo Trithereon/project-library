@@ -114,7 +114,13 @@ form.addEventListener('submit', function(event) {
 });
 
 // "Cancel" button closes the "Add New Book" modal.
-document.getElementById('cancelButton').addEventListener('click', () => {
-document.querySelector('dialog').close();
-document.getElementById('addNewBookForm').reset();
+document.getElementById('cancelButton').addEventListener('click', (event) => {
+    event.preventDefault();
+    const form = document.getElementById('addNewBookForm');
+    form.querySelectorAll('input').forEach(input => {
+        input.value = '';
+        input.blur();
+    });
+    
+    document.querySelector('dialog').close();
 });
