@@ -1,15 +1,13 @@
 const myLibrary = []; // Array used to store the books.
 
-// The constructor function for books.
-function Book(title, author, pages, isRead) { 
-    if (!new.target) { // Safeguard to prevent calling Book() without new.
-        return new Book(title, author, pages, isRead);
+class Book { 
+    constructor(title, author, pages, isRead) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.isRead = isRead || false;
+        this.id = crypto.randomUUID();
     }
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.isRead = isRead || false; // If not provided, default is false.
 }
 
 // Function to take params, create a book, then store it in the array.
