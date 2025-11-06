@@ -1,5 +1,7 @@
-/* The following is adapted from https://github.com/mdn/learning-area/blob/main/html/tables/basic/minimal-table.css, 
-to help style my tables */
+form.addNewBookForm {
+  display: flex;
+  flex-direction: column;
+}
 
 table {
   border-collapse: collapse;

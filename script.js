@@ -31,7 +31,7 @@ addBookToLibrary('Harry Potter', 'JK Rowling', 652, true);
 addBookToLibrary('The Lord of the Rings', 'JRR Tolkien', 36520, false);
 addBookToLibrary('Cook Book', 'Mom', 351, true);
 addBookToLibrary('Autobiography', 'Trithereon', 864, true);
-addBookToLibrary('The Holy Bible', 'God', 6495, false);
+addBookToLibrary('The Holy Bible', 'Various', 6495, false);
 
 displayLibrary();
 
@@ -51,7 +51,9 @@ function addRow(book) {
     pagesCell.textContent = book.pages;
 
     const isReadCell = newRow.insertCell();
-    isReadCell.textContent = book.isRead;
+    if (book.isRead){
+        isReadCell.textContent = "✔ Read ";
+    } else isReadCell.textContent = "Unread ";
     const changeReadStatusButton = document.createElement('button');
     changeReadStatusButton.className = 'changeReadStatusButton';
     changeReadStatusButton.textContent = 'Toggle';
@@ -92,7 +94,9 @@ document.addEventListener('click', function(event) {
 
         // Update display from new property value in object.
         const cell = event.target.closest('td');
-        cell.firstChild.textContent = bookObject.isRead;
+        if (bookObject.isRead){
+            cell.firstChild.textContent = "✔ Read ";
+        } else cell.firstChild.textContent = "Unread ";
     }
 });
 
